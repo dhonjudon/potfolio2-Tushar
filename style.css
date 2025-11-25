@@ -52,24 +52,26 @@ a:hover {
   text-shadow: 0 0 5px rgba(256, 256, 256, 1);
   cursor: default;
 }
-.container {
+
+.about-container {
   position: relative;
-  width: 45%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 5rem;
+  margin-right: 6rem;
 }
 .describe {
-  position: absolute;
   top: 6rem;
   left: 3rem;
   font-size: 1.6rem;
   text-align: justify;
+  width: 40%;
 }
 img {
-
-  width: 40%;
- 
-}
-.about-container {
-  border: white 1px solid;
-  display: flex;
-  justify-content: f;
+  width: 30%;
+  border-radius: 50%;
+  border: white 2px solid;
+  background: linear-gradient(to top, #2112a5, #0000008e);
 }
