@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  font-family: sans-serif;
+  color: whitesmoke;
+}
+body {
+  overflow: hidden;
+}
+header {
+  background-color: rgba(10, 1, 27, 0.104);
+  
+  padding: 4rem;
+  position: relative;
+  z-index: 10;
+	backdrop-filter: blur(5px);
+  
+}
+nav{
+	display: flex;
+	justify-content: end;
+	gap: 2rem;
+	font-size: 2rem;
+	margin-right: 5rem;
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+a {
+  text-decoration: none;
+  color: whitesmoke;
+}
