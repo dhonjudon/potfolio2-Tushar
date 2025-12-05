@@ -56,6 +56,36 @@ nav {
   margin-left: 20rem;
 }
 
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  gap: 6px;
+  z-index: 15;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: whitesmoke;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
 a {
   text-decoration: none;
   transition: 0.3s;
@@ -64,6 +94,53 @@ a {
 a:hover {
   color: white;
   text-shadow: 0 0 5px rgba(256, 256, 256, 1);
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    padding: 1.5rem;
+  }
+
+  .name {
+    font-size: 1.8rem;
+    flex: 1;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  nav {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(10, 1, 27, 0.98);
+    backdrop-filter: blur(4px);
+    flex-direction: column;
+    gap: 0;
+    margin-left: 0;
+    font-size: 1.3rem;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    padding: 0;
+  }
+
+  nav.active {
+    height: calc(4 * 60px);
+  }
+
+  nav a {
+    padding: 15px 20px;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  nav a:hover {
+    background: rgba(155, 105, 255, 0.1);
+  }
 }
 
 video {
@@ -368,13 +445,25 @@ html {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(calc(-352px * 3));
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .projects-section {
   margin: 10rem 6rem 0 5rem;
   padding: 3rem 0;
+  animation: fadeIn 0.8s ease-out;
 }
 
 .projects-title {
@@ -385,6 +474,7 @@ html {
   margin-bottom: 3rem;
   letter-spacing: 1px;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  animation: fadeIn 0.8s ease-out 0.2s both;
 }
 
 .carousel-container {
@@ -393,6 +483,7 @@ html {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 2rem 0;
+  animation: fadeIn 0.8s ease-out 0.4s both;
 }
 
 .carousel {
@@ -400,6 +491,11 @@ html {
   animation: slideCarousel 30s linear infinite;
   gap: 2rem;
   padding: 0 2rem;
+  will-change: transform;
+}
+
+.carousel-container:hover .carousel {
+  animation-play-state: paused;
 }
 
 .project-card {
@@ -409,13 +505,15 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
+  animation: fadeIn 0.6s ease-out;
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(155, 105, 255, 0.3);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(155, 105, 255, 0.4);
+  border-color: rgba(155, 105, 255, 0.5);
 }
 
 .card-image {
@@ -423,11 +521,23 @@ html {
   color: #d9a5ff;
   text-align: center;
   margin-bottom: 1rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .project-card:hover .card-image {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 15px #d9a5ff);
+  animation: float 0.6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: scale(1.15) rotate(5deg) translateY(0);
+  }
+  50% {
+    transform: scale(1.15) rotate(5deg) translateY(-5px);
+  }
 }
 
 .card-title {
@@ -435,6 +545,12 @@ html {
   font-weight: 600;
   color: white;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.project-card:hover .card-title {
+  color: #d9a5ff;
+  text-shadow: 0 0 10px rgba(217, 165, 255, 0.5);
 }
 
 .card-desc {
@@ -442,6 +558,11 @@ html {
   color: rgba(230, 230, 230, 0.8);
   margin-bottom: 1.5rem;
   line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.project-card:hover .card-desc {
+  color: rgba(230, 230, 230, 1);
 }
 
 .card-tags {
@@ -457,6 +578,13 @@ html {
   border-radius: 20px;
   font-size: 0.85rem;
   border: 1px solid rgba(155, 105, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover .tag {
+  background: rgba(155, 105, 255, 0.4);
+  border-color: rgba(155, 105, 255, 0.6);
+  box-shadow: 0 0 8px rgba(155, 105, 255, 0.3);
 }
 
 .contact-section {
@@ -622,6 +750,329 @@ html {
   .contact-btn {
     padding: 0.8rem 1.5rem;
     font-size: 0.95rem;
+  }
+
+  /* About Section */
+  .about-container {
+    flex-direction: column;
+    height: auto;
+    margin: 8rem 2rem 0 2rem;
+    gap: 2rem;
+  }
+
+  .describe {
+    max-width: 100%;
+    font-size: 1rem;
+    padding: 15px 20px;
+  }
+
+  .main-pic {
+    width: 60%;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  /* Hobbies Section */
+  .hobby {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hobby-list {
+    margin: 0 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  li {
+    font-size: 1.5rem;
+  }
+
+  .image-container-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 20px;
+  }
+
+  img {
+    height: 200px;
+  }
+
+  /* Skills Section */
+  .skills-container {
+    margin: 5rem 2rem 0 2rem;
+    padding: 1.5rem;
+  }
+
+  .skills-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .skills-grid {
+    max-width: 100%;
+    gap: 1.5rem;
+  }
+
+  .skill-item:hover {
+    transform: translateX(5px);
+  }
+
+  .label {
+    font-size: 1.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .icon-text i {
+    font-size: 1.8rem;
+  }
+
+  .percentage {
+    font-size: 1.1rem;
+  }
+
+  /* Carousel */
+  .carousel-container {
+    border-radius: 10px;
+    padding: 1rem 0;
+  }
+
+  .carousel {
+    animation: slideCarousel 25s linear infinite;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .project-card {
+    flex: 0 0 280px;
+    padding: 1.5rem;
+  }
+
+  .card-image {
+    font-size: 2.5rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    max-width: 100%;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .submit-btn {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 10rem;
+  }
+
+  header {
+    padding: 1rem;
+  }
+
+  .name {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+  }
+
+  nav {
+    top: 70px !important;
+  }
+
+  nav a {
+    padding: 12px 15px;
+    font-size: 1.1rem;
+  }
+
+  /* About Section */
+  .about-container {
+    margin: 7rem 1rem 0 1rem;
+  }
+
+  .describe {
+    font-size: 0.9rem;
+    padding: 12px 15px;
+    line-height: 1.5;
+  }
+
+  .main-pic {
+    width: 70%;
+    max-width: 200px;
+  }
+
+  /* Hobbies Section */
+  .hobby {
+    font-size: 2rem;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hobby-list {
+    margin: 0 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  li {
+    font-size: 1.3rem;
+  }
+
+  .image-container-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 15px;
+  }
+
+  img {
+    height: 180px;
+  }
+
+  /* Skills Section */
+  .skills-container {
+    margin: 4rem 1rem 0 1rem;
+    padding: 1rem;
+  }
+
+  .skills-title {
+    font-size: 1.8rem;
+  }
+
+  .label {
+    font-size: 1rem;
+  }
+
+  .icon-text i {
+    font-size: 1.5rem;
+  }
+
+  .percentage {
+    font-size: 1rem;
+  }
+
+  /* Projects Section */
+  .projects-section {
+    margin: 4rem 1rem 0 1rem;
+    padding: 1.5rem 0;
+  }
+
+  .projects-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .carousel-container {
+    padding: 1rem 0;
+  }
+
+  .carousel {
+    animation: slideCarousel 20s linear infinite;
+    gap: 0.8rem;
+    padding: 0 0.8rem;
+  }
+
+  .project-card {
+    flex: 0 0 240px;
+    padding: 1.2rem;
+  }
+
+  .card-image {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-desc {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-tags {
+    gap: 0.3rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    margin: 4rem 1rem 3rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .contact-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-desc {
+    font-size: 1rem;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+  }
+
+  .contact-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-form {
+    gap: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.9rem;
+  }
+
+  .submit-btn {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* Footer */
+  footer p {
+    font-size: 0.85rem;
   }
 }
 
