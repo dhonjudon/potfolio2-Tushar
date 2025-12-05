@@ -196,13 +196,7 @@ video {
 
 .hobby-list {
   list-style: none;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 13rem 0 9rem;
-  font-size: 1.4rem;
-  animation: appear linear;
-  animation-timeline: view();
-  animation-range: entry 10% cover 30%;
+  display: none;
 }
 
 li {
@@ -221,9 +215,54 @@ li {
   animation-range: entry 10% cover 30%;
 }
 
-img {
+.hobby-item {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.hobby-item img {
   width: 100%;
   height: 25rem;
+  border-radius: 15px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.4s, box-shadow 0.4s;
+  display: block;
+}
+
+.hobby-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 2rem 1rem 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.hobby-item:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(155, 105, 255, 0.5);
+}
+
+.hobby-item:hover .hobby-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(155, 105, 255, 0.8),
+    rgba(155, 105, 255, 0.3)
+  );
+  padding: 2.5rem 1rem 2rem;
+}
+
+img {
+  width: 100%;
   border-radius: 15px;
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -780,14 +819,16 @@ html {
   }
 
   .hobby-list {
-    margin: 0 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
+    display: none;
   }
 
-  li {
-    font-size: 1.5rem;
+  .hobby-item {
+    border-radius: 10px;
+  }
+
+  .hobby-overlay {
+    font-size: 1.4rem;
+    padding: 1.5rem 0.8rem 1rem;
   }
 
   .image-container-grid {
@@ -796,7 +837,7 @@ html {
     padding: 20px;
   }
 
-  img {
+  .hobby-item img {
     height: 200px;
   }
 
@@ -932,28 +973,32 @@ html {
   /* Hobbies Section */
   .hobby {
     font-size: 2rem;
-    margin-top: 4rem;
+    margin-top: 3rem;
     margin-bottom: 1.5rem;
   }
 
   .hobby-list {
-    margin: 0 1rem;
-    flex-direction: column;
-    align-items: center;
+    display: none;
   }
 
-  li {
-    font-size: 1.3rem;
+  .hobby-item {
+    border-radius: 8px;
+  }
+
+  .hobby-overlay {
+    font-size: 1.2rem;
+    padding: 1.2rem 0.6rem 0.8rem;
   }
 
   .image-container-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 15px;
+    gap: 0.8rem;
+    padding: 10px;
+    margin-top: 1rem;
   }
 
-  img {
-    height: 180px;
+  .hobby-item img {
+    height: 160px;
   }
 
   /* Skills Section */
